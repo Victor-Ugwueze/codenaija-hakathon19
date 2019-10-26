@@ -1,22 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class HomePage extends Component {
-  render() {
+const HomePage = () => {
     return (
-
-      <form>
-  <div class="row">
-    <div class="col">
-      <input type="text" class="form-control" placeholder="First name"/>
-    </div>
-    <div class="col">
-      <input type="text" class="form-control" placeholder="Last name"/>
-    </div>
-    <div class="col">
-      <input type="text" class="form-control" placeholder="Last name"/>
-    </div>
-  </div>
-</form>
-    )
-  }
+    <form>
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="First name"/>
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Last name"/>
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Last name"/>
+        </div>
+      </div>
+  </form>
+  )
 }
+
+export default HomePage;
