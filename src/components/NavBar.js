@@ -14,7 +14,7 @@ const HomePage = () => {
               <li className="nav-item active">
               <Link
                 id="logout"
-                to="/home"
+                to="/home-page"
                 >
                 <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
                 </Link>

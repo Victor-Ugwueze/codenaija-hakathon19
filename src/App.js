@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <NavBar/>
       <Switch>
-        <Route path='/homepage' exact component={HomePage} />
+        <Route path='/home-page' exact component={HomePage} />
         <Route path='/check-page' exact component={CheckPage} />
         {/* <Route path='/authenticate' exact component={Authenticate} /> */}
       </Switch>
