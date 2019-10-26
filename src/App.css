@@ -1,4 +1,56 @@
-.check-page {
+.check-center {
   margin: 0 auto;
-  color: red;
+  width: 50%;
+  margin-top: 20px;
+}
+
+.group-item {
+  display: flex;
+}
+
+.size {
+  width: 40%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-size {
+  width: 60%;
+}
+
+.text {
+  margin-top: 10px;
+}
+
+.search-container {
+  margin: 108px 0px 0px 40px;
+}
+
+.search-size {
+  width: 10%;
+  margin-top: -63px;
+}
+
+.image-size {
+  width: 90%;
+}
+
+.input-search {
+  width: 160%;
+}
+
+.search-icon {
+  justify-content: end;
+}
+.text-arrangement {
+  font-weight: 500;
+}
+
+.arrge {
+  display:flex;
+  justify-content: space-between;
+  font-size: 26px;
 }
