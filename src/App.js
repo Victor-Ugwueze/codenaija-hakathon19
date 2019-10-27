@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import CheckPage from './components/CheckPage';
+import Login from './components/Login';
 import './App.css'
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
       <Switch>
         <Route path='/home-page' exact component={HomePage} />
         <Route path='/check-page' exact component={CheckPage} />
-        { /* <Route path='/authenticate' exact component={Authenticate} /> */ }
+        <Route path='/login' exact component={Login} />
       </Switch>
     </BrowserRouter>
     </div>
