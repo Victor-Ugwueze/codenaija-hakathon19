@@ -5,7 +5,6 @@ const HomePage = () => {
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">Navbar</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -14,9 +13,10 @@ const HomePage = () => {
               <li className="nav-item active">
               <Link
                 id="logout"
+                className="nav-link"
                 to="/home-page"
                 >
-                <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                  HomePage
                 </Link>
               </li>
        
@@ -24,9 +24,10 @@ const HomePage = () => {
 
               <Link
                 id="logout"
+                className="nav-link"
                 to="/check-page"
                 >
-                  <a className="nav-link" href="#">CheckPage</a>
+                  CheckPage
                 </Link>
 
 
