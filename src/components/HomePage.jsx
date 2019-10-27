@@ -61,7 +61,7 @@ class HomePage extends Component {
   };
 
   finishReport = async url => {
-    const { vehicles: { plate_number, } } = this.state;
+    const { vehicle: { plate_number, VIN } } = this.state;
     this.setState({ triggerUpload: false });
     await this.props.firebase.sendReport({ ...this.state.vehicle, imageUrl: url || '' });
     ToastsStore.success('Report send');
