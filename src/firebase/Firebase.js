@@ -20,7 +20,7 @@ export default class Firebase {
 
   googleLogin() {
     const provider = new app.auth.GoogleAuthProvider();
-    this.auth.signInWithEmailAndPassword(provider);
+    return this.auth.signInWithEmailAndPassword(provider);
   }
 
   searchVehicles = async (value) => {

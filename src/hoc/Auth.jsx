@@ -11,9 +11,10 @@ export default function(ComposedComponent) {
       const { firebase, history } = this.props;
 
       firebase.auth.onAuthStateChanged((user) => {
+        console.log(user, 'hshhshshh')
         if (!user) {
           firebase.logout();
-          history.push('/');
+          history.push('/login');
           return;
         }
         this.setState((state) => ({ ...state, isLoaded: true }));

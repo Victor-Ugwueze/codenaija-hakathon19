@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { withFirebase } from '../firebase';
+import withAuth from '../hoc/Auth'
 import Image from '../Image/Group.svg';
 import Search from '../Image/search.svg'
 import Good from '../Image//good.svg';
@@ -137,4 +138,4 @@ const CheckPage = (props) => {
   )
 }
 
-export default withFirebase(CheckPage);
+export default withAuth(withFirebase(CheckPage));
