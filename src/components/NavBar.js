@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
+  console.log(window.location.pathname)
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -21,7 +22,6 @@ const HomePage = () => {
               </li>
        
               <li className="nav-item">
-
               <Link
                 id="logout"
                 className="nav-link"
@@ -29,14 +29,35 @@ const HomePage = () => {
                 >
                   CheckPage
                 </Link>
-
-
+              </li>
+              <li className="nav-item">
+              <Link
+                id="logout"
+                to="/login"
+                >
+                  <a className="nav-link" href="#">Login</a>
+                </Link>
               </li>
               </ul>
-              <form className="form-inline my-2 my-lg-0">
-          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+              {
+            window.location.pathname != '/login' ? 
+             (
+               <>
+                <form className="form-inline my-2 my-lg-0">
+                  <input 
+                    className="form-control mr-sm-2" type="search" 
+                    placeholder="Search" 
+                    aria-label="Search" />
+                  <button 
+                    className="btn btn-outline-success my-2 my-sm-0" 
+                    type="submit">
+                      Search
+                  </button> 
+                  </form>
+                </>
+              )
+            : null
+          }
     </div>
   </nav>
   </>
