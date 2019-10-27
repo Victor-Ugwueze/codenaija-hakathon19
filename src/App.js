@@ -13,6 +13,7 @@ function App() {
        <NavBar/>
       <Switch>
         <Route path='/home-page' exact component={HomePage} />
+        <Route path='/' exact component={HomePage} />
         <Route path='/check-page' exact component={CheckPage} />
         <Route path='/login' exact component={Login} />
       </Switch>
