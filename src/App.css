@@ -2,6 +2,12 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .check-center {
   margin: 0 auto;
   width: 50%;

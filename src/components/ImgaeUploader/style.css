@@ -1,0 +1,22 @@
+.image-uploader {
+  width: 371px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #F8F9FA;
+  border: 1px dashed #C4C4C4;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #153C55;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.image-uploader input {
+  display: none;
+}
