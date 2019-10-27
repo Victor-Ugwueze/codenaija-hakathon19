@@ -6,6 +6,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/react-widgets/dist/css/react-widgets.css';
 // import "../node_modules/react-datepicker/dist/react-datepicker.css";
 import App from './App';
+import './App.css';
 
 import Firebase, { FirebaseContext } from './firebase';
 
