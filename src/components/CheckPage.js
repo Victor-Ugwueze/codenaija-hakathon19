@@ -1,21 +1,20 @@
 import React from 'react';
 import Image from '../Image/Group.svg';
 import Search from '../Image/search.svg'
+import Good from '../Image//good.svg';
 
 const CheckPage = () => {
 
-  const data = [{
+  const data = {
     plateNumber: 'EKY57FJ',
     color: 'Black',
     make: 'Honda',
     year: '2015',
     vin: 'VI274HSAIUUIEW'
-  }]
+  };
 
-  const Display = (value) => {
-    return (
-      <span>{value}</span>
-    )
+  const result ={
+    reported: true
   }
 
   return (
@@ -23,68 +22,65 @@ const CheckPage = () => {
         <div className="group-item">
           <div className="jumbotron size">
           <img 
-            src={Image} 
+            src={result.reported ? Image : Good} 
             className='image-size' 
             alt='Search Icon' 
             />
-          <h3 className="text">STOLEN</h3>
+          <h3 className="text">{result.reported ? 'REPORTED' : ''}</h3>
           </div>
           <div className="search-container">
-          <div className="search-icon">
+          <div className="search_icon search__body">
             <input 
-              className="form-control mr-sm-2 input-search" type="search" 
+            className="input-field"
               placeholder="Search by plate number or VIN" 
-              aria-label="Search" 
             />
-            <img 
+             <img 
               src={Search} 
               className='search-size' 
               alt='Search Icon' 
             />
            </div>
            <div>
-             {
-               data.map((value) => {
-                 return (
-                   <div style={{ width: '160%'}}>
-                    <div className="arrge">
-                    <span  
-                      className="text-arrangement">
-                      {value.plateNumber}
+                <div className="arrge">
+                    <span 
+                      className="text-arrangement plate-number">{data.plateNumber}</span>
+                    <span>
+                      <span 
+                        className="text-arrangement"
+                        style={{ marginRight: '8%' }}
+                        >
+                        Color:
+                        </span>
+                       <span>{data.color}</span>
                     </span>
-                    </div>
-                    <div className="arrge">
+                    <span>
                     <span 
-                        className="text-arrangement">
-                        Color:</span>
-                        {Display(value.color)
-                      }
-                    </div>
-                    <div className="arrge">
+                        className="text-arrangement"
+                        style={{ marginRight: '8%' }}
+                        >
+                        Make:
+                        </span>
+                       <span>{data.make}</span>
+                    </span>
+                    <span>
                     <span 
-                      className="text-arrangement">
-                      Make:</span>
-                      {Display(value.make)
-                      }
-                    </div>
-                    <div className="arrge">
+                        className="text-arrangement"
+                        style={{ marginRight: '12%' }}
+                        >
+                        Year:
+                        </span>
+                       <span>{data.year}</span>
+                    </span>
+                    <span>
                     <span 
-                      className="text-arrangement">
-                      Year:</span>
-                      {Display(value.year)
-                      }
-                    </div>
-                    <div className="arrge">
-                    <span 
-                      className="text-arrangement">
-                      VIN:</span>
-                      {Display(value.vin)
-                      }
-                    </div>
-                  </div>
-                )
-               } )
-             }
+                        className="text-arrangement"
+                        style={{ marginRight: '17%' }}
+                        >
+                        Vin:
+                        </span>
+                       <span>{data.vin}</span>
+                    </span>
+                </div>
            </div>
         </div>
       </div>
