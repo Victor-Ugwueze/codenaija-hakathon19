@@ -23,10 +23,14 @@ export default class Firebase {
     this.auth.signInWithEmailAndPassword(provider);
   }
 
-  searchVehicles = async ({ query, value }) => {
+  searchVehicles = async (value) => {
+    let result = null;
     const vehicleRef = app.firestore().collection('vehicles');
-    const result = await vehicleRef.where(query, '==', value).get();
-    return result;
+    const searchTwo = await vehicleRef.where('VIN', '==', value).get();
+    const searchOne = await vehicleRef.where('plate_number', '==', value).get();
+    searchOne.forEach(s => result = s.data());
+    searchTwo.forEach(s => result ? result : s.data())
+    return result
   }
 
 

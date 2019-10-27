@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { withFirebase } from '../firebase'
 
-const HomePage = () => {
+const HomePage = (props) => {
+  const { location: { pathname }, history } = props;
   const [search, setSearch] = useState('');
 
-  const searchCar = () => {};
+  const searchCar = (event) => {
+    event.preventDefault();
+   if(search.length > 5) {
+    history.push('/check-page', {
+      search
+    });
+   }
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -40,23 +49,24 @@ const HomePage = () => {
               </Link>
             </li>
           </ul>
-          <form className="form-inline my-2 my-lg-0" onSubmit={searchCar}>
+         {pathname !== '/check-page' && <form className="form-inline my-2 my-lg-0" onSubmit={searchCar}>
             <input
               className="form-control mr-sm-2"
               type="search"
-              onChange={setSearch}
+              onChange={e => setSearch(e.target.value)}
               value={search}
-              placeholder="Search"
+              placeholder="Search with VIN or Plate Number"
               aria-label="Search"
             />
             <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
               Search
             </button>
           </form>
+         }
         </div>
       </nav>
     </>
   );
 };
 
-export default HomePage;
+export default withRouter(withFirebase(HomePage));
