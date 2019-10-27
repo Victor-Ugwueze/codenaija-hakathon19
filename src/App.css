@@ -121,3 +121,31 @@
     transform: rotate(1800deg);
   }
 }
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  display: block !important;
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4)
+}
+
+.modal-body {
+ 
+  text-align: center;
+  font-weight: bolder;
+  
+}
+
+@media (min-width: 576px) {
+.modal-dialog {
+    max-width: 500px;
+    margin: 1.75rem auto;
+    margin-top: 200px !important;
+}
+}
