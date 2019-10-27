@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withFirebase } from '../firebase';
 import ImageUploader from './ImgaeUploader/ImgaeUploader';
 import './HomePage.scss';
-import { DateTimePicker } from 'react-widgets';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets-moment';
 import { ToastsContainer, ToastsStore, ToastsContainerPosition } from 'react-toasts';
@@ -35,6 +35,10 @@ class HomePage extends Component {
         [name]: value
       }
     }));
+  };
+
+  handleChange = location => {
+    this.setState({ ...this.state, vehicle: { ...this.state.vehicle, location } });
   };
 
   onSubmit = async e => {
@@ -74,6 +78,15 @@ class HomePage extends Component {
       displayImage: URL.createObjectURL(file) || ''
     });
   };
+
+  handleSelect = location => {
+    this.setState({ ...this.state, vehicle: { ...this.state.vehicle, location } });
+    geocodeByAddress(location)
+      .then(results => getLatLng(results[0]))
+      .then(({ lat, lng }) => this.setState({ location: `${lat},${lng}` }))
+      .catch(error => console.error(error, 'error'));
+  };
+
   render() {
     const { displayImage, triggerUpload, isLoading } = this.state;
     return (
@@ -114,13 +127,53 @@ class HomePage extends Component {
             </div>
             <div className="form-row">
               <div className="form-group col-md-6 col-sm-12">
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  name="location"
-                  placeholder="Enter last seen location"
-                  onChange={this.handleInputChange}
-                />
+                <PlacesAutocomplete
+                  value={this.state.vehicle.location}
+                  onChange={this.handleChange}
+                  onSelect={this.handleSelect}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                    <div>
+                      <input
+                        {...getInputProps({
+                          placeholder: 'Last seen location',
+                          className: 'form-control form-control-lg'
+                        })}
+                      />
+                      <div className="autocomplete-dropdown-container">
+                        {loading && <div>Loading...</div>}
+                        {suggestions.map(suggestion => {
+                          const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
+                          // inline style for demonstration purpose
+                          const style = suggestion.active
+                            ? {
+                                backgroundColor: '#fafafa',
+                                cursor: 'pointer',
+                                border: '1px solid #999',
+                                zIndex: '999999'
+                              }
+                            : {
+                                backgroundColor: '#ffffff',
+                                cursor: 'pointer',
+                                border: '1px solid #999',
+                                boxShadow: '1px 2px 2px #999',
+                                zIndex: '999999'
+                              };
+                          return (
+                            <div
+                              {...getSuggestionItemProps(suggestion, {
+                                className,
+                                style
+                              })}
+                            >
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
               </div>
               <div className="form-group col-md-6 col-sm-12">
                 <input
@@ -149,8 +202,8 @@ class HomePage extends Component {
                 >
                   SUBMIT REPORT
                   {isLoading && (
-                    <div class="spinner-border" role="status">
-                      <span class="sr-only">Loading...</span>
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
                     </div>
                   )}
                 </button>
