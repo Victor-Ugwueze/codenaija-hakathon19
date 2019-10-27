@@ -178,7 +178,7 @@ class HomePage extends Component {
                 </div>
                 <div className="form-group col-md-6 col-sm-12">
                   <input
-                    type="datetime-local"
+                    type="date"
                     className="form-control form-control-lg"
                     name="time"
                     placeholder="Time of theft"
