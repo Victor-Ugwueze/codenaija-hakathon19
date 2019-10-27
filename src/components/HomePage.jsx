@@ -14,7 +14,7 @@ class HomePage extends Component {
   state = {
     vehicle: {
       plate_number: '',
-      vin: '',
+      VIN: '',
       license: '',
       location: '',
       datetime: null,
@@ -61,14 +61,14 @@ class HomePage extends Component {
   };
 
   finishReport = async url => {
+    const { vehicles: { plate_number, } } = this.state;
     this.setState({ triggerUpload: false });
     await this.props.firebase.sendReport({ ...this.state.vehicle, imageUrl: url || '' });
     ToastsStore.success('Report send');
-    // this.props.firebase.app.functions()
-    // .httpsCallable('sendSMS')({
-    //   message: "This vehicle has been reported lost please be on the look out\nCAR: HONDA\nVIN: 86528HTE88\nPLATE NUMBER: EKY769JK"
-    //   // message: 'A car with this number has been reported stolen'
-    // });
+    this.props.firebase.app.functions()
+    .httpsCallable('sendSMS')({
+      message: `This vehicle has been reported lost please be on the look out\nCAR: HONDA\nVIN: ${VIN} \nPlate Number: ${plate_number}`
+    });
 
     this.setState({ isLoading: false });
   };
