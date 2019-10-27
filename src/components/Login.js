@@ -30,10 +30,12 @@ const Login = (props) => {
     e.preventDefault();
     if(inputValue.email === '') {
       setDisplay({...display,  show: true })
+      setIsLoading(false);
     }
-    
+
     if(inputValue.password === '') {
       setDisplay({...display,  show: true })
+      setIsLoading(false);
     }
 
     if(inputValue.password && inputValue.email !== '') {
