@@ -29,6 +29,7 @@ class NavBar extends Component {
         modalIsOpen: true,
         result: searchResult
       })
+    
    }
   }
 
@@ -86,6 +87,7 @@ class NavBar extends Component {
                     className="form-control mr-sm-2" type="search" 
                     placeholder="Search with VIN or Plate Number" 
                     name="search"
+                    required="true"
                     onChange={this.handleSearchInput}
                     aria-label="Search" />
                   <button 
