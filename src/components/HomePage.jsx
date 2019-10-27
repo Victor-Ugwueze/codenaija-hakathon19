@@ -85,18 +85,22 @@ class HomePage extends Component {
         <form className="homepage-form" onSubmit={this.onSubmit}>
           <div className="row row-1">
             <div className="col">
-              <input type="text" className="form-control form-control-col" name="plate_number" onChange={this.handleInputChange} placeholder="Plate number"/>
+              <input type="text" className="form-control 
+              required form-control-col" name="plate_number" onChange={this.handleInputChange} placeholder="Plate number"/>
             </div>
             <div className="col">
-              <input type="text" className="form-control form-control-col" name="VIN"placeholder="Enter VIN" onChange={this.handleInputChange}/>
+              <input type="text" className="form-control 
+              required form-control-col" name="VIN"placeholder="Enter VIN" onChange={this.handleInputChange}/>
             </div>
             <div className="col">
-              <input type="text" className="form-control form-control-col" name="license"placeholder="Drivers License" onChange={this.handleInputChange}/>
+              <input type="text" className="form-control form-control-col"
+              required
+               name="license"placeholder="Drivers License" onChange={this.handleInputChange}/>
             </div>
           </div>
           <div className="row row-2">
             <div className="col row-2-col-1">
-              <input type="text" className="form-control form-control-col-1 form-control-col" name="location"placeholder="Enter last seen location" onChange={this.handleInputChange}/>
+              <input type="text" required className="form-control form-control-col-1 form-control-col" name="location"placeholder="Enter last seen location" onChange={this.handleInputChange}/>
             </div>
             <div className="col row-2-col-2">
             <DateTimePicker

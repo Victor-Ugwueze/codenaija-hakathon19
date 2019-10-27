@@ -5,7 +5,7 @@ const HomePage = () => {
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">Navbar</a>
+        <a className="navbar-brand" href="#">Tracker</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -21,15 +21,20 @@ const HomePage = () => {
               </li>
        
               <li className="nav-item">
-
               <Link
                 id="logout"
                 to="/check-page"
                 >
                   <a className="nav-link" href="#">CheckPage</a>
                 </Link>
-
-
+              </li>
+              <li className="nav-item">
+              <Link
+                id="logout"
+                to="/login"
+                >
+                  <a className="nav-link" href="#">Login</a>
+                </Link>
               </li>
               </ul>
               <form className="form-inline my-2 my-lg-0">
