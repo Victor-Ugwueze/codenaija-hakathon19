@@ -10,7 +10,6 @@ const CheckPage = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({});
   const [display, setDisplay] = useState({ show: false})
-
   const searchVehicle = async () => {
     setIsLoading(true);
     const searchResult = await props.firebase.searchVehicles(search);
