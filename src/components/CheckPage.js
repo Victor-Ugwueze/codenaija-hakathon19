@@ -8,6 +8,7 @@ const CheckPage = (props) => {
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({});
+  const [display, setDisplay] = useState({ show: false})
 
   const searchVehicle = async () => {
     setIsLoading(true);
@@ -15,12 +16,37 @@ const CheckPage = (props) => {
     console.log(searchResult, 'searchResult')
     if(searchResult) {
       setData(searchResult)
+      setDisplay({...display,  show: false });
+    }else {
+      setDisplay({...display,  show: true });
     }
     setIsLoading(false);
   }
 
+  const removeAlert = () => {
+    setDisplay({...display,  show: false })
+  }
+
+  const alert = () => {
+    return (
+          <div className="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Car not found</strong>
+          <button 
+            type="button" 
+            className="close" 
+            data-dismiss="alert" 
+            aria-label="Close"
+            onClick={removeAlert}
+            >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    )
+  }
+
   return (
     <div className="check-center">
+       {display.show ? alert() : null}
       {isLoading
        ? (<div className="lds-hourglass"></div>)
        : (<div className="group-item">
