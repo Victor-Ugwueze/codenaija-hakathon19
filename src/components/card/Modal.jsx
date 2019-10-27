@@ -9,7 +9,7 @@ export default class Modal extends Component {
      
       <div>
         {value === null ? <ModalCommon handleCloseModal={handleCloseModal} content="No Record Found"/> :
-        <ModalCommon handleCloseModal={handleCloseModal} content="Reported !"/>
+        <ModalCommon handleCloseModal={handleCloseModal} content={`${value && value.reported ? 'Car found, Reported !': 'Car found, Not reported'}`}/>
       }
       </div>
     )

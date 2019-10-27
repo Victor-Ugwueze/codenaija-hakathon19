@@ -37,7 +37,8 @@ export default class Firebase {
   async sendReport(data) {
      await this.app.firestore().collection('vehicles')
       .add({
-       ...data
+       ...data,
+       reported: true
     });
   }
 
