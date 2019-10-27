@@ -18,7 +18,7 @@ const HomePage = (props) => {
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="#">
-          Navbar
+        Tracker
         </a>
         <button
           className="navbar-toggler"
@@ -40,11 +40,10 @@ const HomePage = (props) => {
                 </a>
               </Link>
             </li>
-
             <li className="nav-item">
-              <Link id="logout" to="/check-page">
+              <Link id="logout" to="/login">
                 <a className="nav-link" href="#">
-                  CheckPage
+                  Login
                 </a>
               </Link>
             </li>
