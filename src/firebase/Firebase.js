@@ -2,7 +2,8 @@ import app from 'firebase/app';
 import { defaultConfig } from './config';
 
 require('firebase/auth');
-require('firebase/database');
+require('firebase/firestore');
+require('firebase/storage');
 require('firebase/functions');
 
 export default class Firebase {
@@ -19,17 +20,30 @@ export default class Firebase {
 
   googleLogin() {
     const provider = new app.auth.GoogleAuthProvider();
-    this.auth.signInWithRedirect(provider);
+    this.auth.signInWithEmailAndPassword(provider);
   }
 
-  getUser() {
-    const usersRefs = app.database().ref('/users');
-    usersRefs
-      .orderByChild('email')
-      .equalTo('email')
-      .once('value', snapshot => {
-       
-      });
+  searchVehicles = async ({ query, value }) => {
+    const vehicleRef = app.firestore().collection('vehicles');
+    const result = await vehicleRef.where(query, '==', value).get();
+    return result;
   }
 
+
+  async sendReport(data) {
+     await this.app.firestore().collection('vehicles')
+      .add({
+       ...data
+    });
+  }
+
+  async uploadToFirebase(file) {
+    const date = new Date();
+    const storageRef = this.app.storage().ref();
+    const fileRef = storageRef.child(
+      `vehicles/${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}-${file.name}`,
+    );
+    const storageResponse = await fileRef.put(file);
+    return storageResponse.ref.getDownloadURL();
+  }
 }

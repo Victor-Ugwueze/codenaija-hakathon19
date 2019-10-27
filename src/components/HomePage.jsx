@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import { withFirebase } from '../firebase';
+import ImageUploader from './ImgaeUploader/ImgaeUploader';
 import "../styles/homepage.css"
 import { DateTimePicker } from 'react-widgets'
 import Moment from 'moment'
@@ -8,9 +10,10 @@ import momentLocalizer from 'react-widgets-moment';
 Moment.locale('en')
 momentLocalizer()
 
-export default class HomePage extends Component {
+class HomePage extends Component {
 
   state = {
+   vehicle: {
     plate_number: "",
     vin: "",
     license: "",
@@ -18,27 +21,52 @@ export default class HomePage extends Component {
     datetime: null,
     displayImage: '',
     image: '',
+   },
+   isLoading: false,
+   triggerUpload: false
   }
 
   handleInputChange=(e) => {
-
     const {name, value} = e.target
 
-    this.setState({
-      [name]: value
-    })
+    this.setState(state => ({
+      ...state,
+      vehicle: {
+        ...state.vehicle,
+        [name]: value
+      }
+    }))
 
   }
 
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault()
+    if(!this.state.file){
+      this.finishReport()
+    }
+    // this.setState({ triggerUpload: true })
+  }
+
+  searchVehicle = async (e) => {
+    e.preventDefault()
+    const result = await this.props.firebase.searchVehicles({ query: 'Color', value: 'Red'});
+    console.log(result, 'result')
     console.log(this.state)
   }
 
-  handleImageUpload = (event) => {
+  finishReport = async url => {
+    // this.setState({ triggerUpload: false })
+    // await this.props.firebase.sendReport({ ...this.state.vehicle, imageUrl: url });
+    this.props.firebase.app.functions()
+    .httpsCallable('sendSMS')({
+      message: "This vehicle has been reported lost please be on the look out%0aCAR: HONDA%0aVIN: 86528HTE88%0aPLATE NUMBER: EKY769JK"
+      // message: 'A car with this number has been reported stolen'
+    })
+  }
+
+  handleImageUpload = (file) => {
     this.setState({
-      image: event.target.files[0],
-      displayImage: URL.createObjectURL(event.target.files[0]) || ''
+      displayImage: URL.createObjectURL(file) || ''
     });
   };
   render() {
@@ -98,9 +126,22 @@ export default class HomePage extends Component {
 
     <div className="col col-btn-row">
     <div className="upload-btn-wrapper">
-  <button className="btn-btn">Upload car images</button>
-  <input type="file" name="myfile" accept="image/*" multiple onChange={this.handleImageUpload}/>
-  
+  {/* <button className="btn-btn">Upload car images</button> */}
+    <ImageUploader
+      triggerUpload={triggerUpload}
+      onChange={(file) => {
+        this.handleImageUpload(file);
+        this.setState(state => ({
+          ...state,
+          file,
+          imageUrl: ''
+        }))
+      }}
+      onUpload={(url) => {
+        this.finishReport(url)
+      }}
+    />
+  {/* <input type="file" name="myfile" accept="image/*" multiple onChange={}/> */}
 </div>
     </div> 
   </div>
@@ -110,3 +151,5 @@ export default class HomePage extends Component {
     )
   }
 }
+
+export default  withFirebase(HomePage);
