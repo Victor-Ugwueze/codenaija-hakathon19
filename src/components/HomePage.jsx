@@ -95,138 +95,140 @@ class HomePage extends Component {
 
         <div className="container flex-fill pt-4">
           <h1 className="header-title display-4 text-center">Report your stolen car</h1>
-          <form className="homepage-form" onSubmit={this.onSubmit}>
-            <div className="form-row">
-              <div className="form-group col-md-3 col-sm-12">
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  name="plate_number"
-                  onChange={this.handleInputChange}
-                  placeholder="Plate number"
-                />
+          <div className="row-md-12 col-sm-12">
+            <form className="homepage-form col" onSubmit={this.onSubmit}>
+              <div className="form-row">
+                <div className="form-group col-md-3 col-sm-12">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    name="plate_number"
+                    onChange={this.handleInputChange}
+                    placeholder="Plate number"
+                  />
+                </div>
+                <div className="form-group col-md-6 col-sm-12">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    name="VIN"
+                    placeholder="Enter VIN"
+                    onChange={this.handleInputChange}
+                  />
+                </div>
+                <div className="form-group col-md-3 col-sm-12">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    name="license"
+                    placeholder="Drivers License"
+                    onChange={this.handleInputChange}
+                  />
+                </div>
               </div>
-              <div className="form-group col-md-6 col-sm-12">
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  name="VIN"
-                  placeholder="Enter VIN"
-                  onChange={this.handleInputChange}
-                />
-              </div>
-              <div className="form-group col-md-3 col-sm-12">
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  name="license"
-                  placeholder="Drivers License"
-                  onChange={this.handleInputChange}
-                />
-              </div>
-            </div>
-            <div className="form-row">
-              <div className="form-group col-md-6 col-sm-12">
-                <PlacesAutocomplete
-                  value={this.state.vehicle.location}
-                  onChange={this.handleChange}
-                  onSelect={this.handleSelect}
-                >
-                  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                    <div>
-                      <input
-                        {...getInputProps({
-                          placeholder: 'Last seen location',
-                          className: 'form-control form-control-lg'
-                        })}
-                      />
-                      <div className="autocomplete-dropdown-container">
-                        {loading && <div>Loading...</div>}
-                        {suggestions.map(suggestion => {
-                          const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
-                          // inline style for demonstration purpose
-                          const style = suggestion.active
-                            ? {
-                                backgroundColor: '#fafafa',
-                                cursor: 'pointer',
-                                border: '1px solid #999',
-                                zIndex: '999999'
-                              }
-                            : {
-                                backgroundColor: '#ffffff',
-                                cursor: 'pointer',
-                                border: '1px solid #999',
-                                boxShadow: '1px 2px 2px #999',
-                                zIndex: '999999'
-                              };
-                          return (
-                            <div
-                              {...getSuggestionItemProps(suggestion, {
-                                className,
-                                style
-                              })}
-                            >
-                              <span>{suggestion.description}</span>
-                            </div>
-                          );
-                        })}
+              <div className="form-row">
+                <div className="form-group col-md-6 col-sm-12">
+                  <PlacesAutocomplete
+                    value={this.state.vehicle.location}
+                    onChange={this.handleChange}
+                    onSelect={this.handleSelect}
+                  >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                      <div>
+                        <input
+                          {...getInputProps({
+                            placeholder: 'Last seen location',
+                            className: 'form-control form-control-lg'
+                          })}
+                        />
+                        <div className="autocomplete-dropdown-container">
+                          {loading && <div>Loading...</div>}
+                          {suggestions.map(suggestion => {
+                            const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
+                            // inline style for demonstration purpose
+                            const style = suggestion.active
+                              ? {
+                                  backgroundColor: '#fafafa',
+                                  cursor: 'pointer',
+                                  border: '1px solid #999',
+                                  zIndex: '999999'
+                                }
+                              : {
+                                  backgroundColor: '#ffffff',
+                                  cursor: 'pointer',
+                                  border: '1px solid #999',
+                                  boxShadow: '1px 2px 2px #999',
+                                  zIndex: '999999'
+                                };
+                            return (
+                              <div
+                                {...getSuggestionItemProps(suggestion, {
+                                  className,
+                                  style
+                                })}
+                              >
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </PlacesAutocomplete>
+                    )}
+                  </PlacesAutocomplete>
+                </div>
+                <div className="form-group col-md-6 col-sm-12">
+                  <input
+                    type="datetime-local"
+                    className="form-control form-control-lg"
+                    name="time"
+                    placeholder="Time of theft"
+                    value={this.state.datetime}
+                    onChange={value =>
+                      this.setState({
+                        datetime: new Date(value)
+                      })
+                    }
+                  />
+                </div>
               </div>
-              <div className="form-group col-md-6 col-sm-12">
-                <input
-                  type="datetime-local"
-                  className="form-control form-control-lg"
-                  name="time"
-                  placeholder="Time of theft"
-                  value={this.state.datetime}
-                  onChange={value =>
-                    this.setState({
-                      datetime: new Date(value)
-                    })
-                  }
-                />
+              <div className="form-row">
+                <div className="form-group col">
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn col-sm-12"
+                    disabled={`${isLoading ? 'disabled' : ''}`}
+                  >
+                    SUBMIT REPORT
+                    {isLoading && (
+                      <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    )}
+                  </button>
+                </div>
+                <div className="form-group col">
+                  <ImageUploader
+                    style={{ margin: 0 }}
+                    triggerUpload={triggerUpload}
+                    onChange={file => {
+                      this.handleImageUpload(file);
+                      this.setState(state => ({
+                        ...state,
+                        file,
+                        imageUrl: ''
+                      }));
+                    }}
+                    onUpload={url => {
+                      this.finishReport(url);
+                    }}
+                  />
+                </div>
               </div>
+            </form>
+            <div className="col">
+              {displayImage && <img className="upload-image img-fluid" src={displayImage} alt="al" />}
             </div>
-            <div className="form-row">
-              <div className="col">{displayImage && <img className="upload-image" src={displayImage} alt="al" />}</div>
-            </div>
-            <div className="form-row">
-              <div className="form-group col">
-                <button
-                  type="submit"
-                  className="btn btn-primary btn col-sm-12"
-                  disabled={`${isLoading ? 'disabled' : ''}`}
-                >
-                  SUBMIT REPORT
-                  {isLoading && (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  )}
-                </button>
-              </div>
-              <div className="form-group col">
-                <ImageUploader
-                  style={{ margin: 0 }}
-                  triggerUpload={triggerUpload}
-                  onChange={file => {
-                    this.handleImageUpload(file);
-                    this.setState(state => ({
-                      ...state,
-                      file,
-                      imageUrl: ''
-                    }));
-                  }}
-                  onUpload={url => {
-                    this.finishReport(url);
-                  }}
-                />
-              </div>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     );
