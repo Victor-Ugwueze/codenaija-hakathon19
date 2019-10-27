@@ -1,22 +1,32 @@
 import React, { useState } from 'react';
-import { history } from 'react-router-dom';
+import { withFirebase } from '../firebase';
 
 const Login = (props) => {
+  props.firebase.auth.onAuthStateChanged((user) => {
+    if (user) {
+      props.history.push('/check-page');
+      return;
+    }
+  });
   const [inputValue, setValues] = useState(
     {
       email: '',
       password: ''
     }
-  ) 
+  );
+  const [isLoading, setIsLoading] = useState(false)
 
-  const [display, setDisplay] = useState({ show: false})
+
+
+  const [display, setDisplay] = useState({ show: false, message: 'Field cannot be empty!!' })
   
   const handleInput = (e) => {
     const { name, value } = e.target
     setValues({...inputValue, [name]: value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     if(inputValue.email === '') {
       setDisplay({...display,  show: true })
@@ -27,6 +37,16 @@ const Login = (props) => {
     }
 
     if(inputValue.password && inputValue.email !== '') {
+      try {
+        const result = await props.firebase.auth.signInWithEmailAndPassword(inputValue.email, inputValue.password);
+        console.log(result);
+      } catch (error) {
+        setDisplay({...display,  show: true, message: 'Incorrect email or password' })
+        setIsLoading(false);
+        return;
+      }
+      setIsLoading(false);
+
       props.history.push('/check-page')
     }
   }
@@ -38,7 +58,7 @@ const Login = (props) => {
   const alert = () => {
     return (
           <div className="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Field cannot be empty!!</strong>
+          <strong>{display.message}</strong>
           <button 
             type="button" 
             className="close" 
@@ -104,7 +124,11 @@ const Login = (props) => {
             Forget Password ? 
         </span>
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
+      <button disabled={`${isLoading ? 'disabled' : ''}`} type="submit" className="btn btn-primary">
+        Submit
+        {isLoading &&  <div className="spinner-border" role="status">
+          <span class="sr-only">Loading...</span> </div> }
+      </button>
     </form>
     </div>
     </div>
@@ -112,4 +136,4 @@ const Login = (props) => {
 }
 
 
-export default Login;
+export default withFirebase(Login);
