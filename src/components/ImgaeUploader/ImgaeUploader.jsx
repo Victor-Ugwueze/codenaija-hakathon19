@@ -6,7 +6,7 @@ import { withFirebase } from '../../firebase';
 
 class ImageUploader extends Component {
   state = {
-    file: {},
+    file: {}
   };
 
   constructor(props) {
@@ -23,16 +23,16 @@ class ImageUploader extends Component {
     }
   }
 
-  handleFiles = (event) => {
+  handleFiles = event => {
     const { onChange } = this.props;
     event.preventDefault();
     if (event.target.files[0]) {
       const file = event.target.files[0];
       if (file.type.toLowerCase().includes('image')) {
-        this.setState((state) => {
+        this.setState(state => {
           return {
             ...state,
-            file,
+            file
           };
         });
         onChange(file);
@@ -67,14 +67,14 @@ class ImageUploader extends Component {
     const { file } = this.state;
 
     return (
-      <div className='image-uploader' onClick={this.triggerFileSelection}>
+      <div className="image-uploader btn-lg" onClick={this.triggerFileSelection}>
         {file.name ? file.name : `Click or drag image here to upload`}
         <input
-          accept='image/*'
+          accept="image/*"
           multiple
-          name='car'
-          type='file'
-          id='fileElem'
+          name="car"
+          type="file"
+          id="fileElem"
           ref={this.fileInputRef}
           onChange={this.handleFiles}
         />
