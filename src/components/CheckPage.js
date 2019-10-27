@@ -9,9 +9,8 @@ const CheckPage = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({});
 
-
-
   const searchVehicle = async () => {
+    setIsLoading(true);
     const searchResult = await props.firebase.searchVehicles(search);
     console.log(searchResult, 'searchResult')
     if(searchResult) {
@@ -23,7 +22,7 @@ const CheckPage = (props) => {
   return (
     <div className="check-center">
       {isLoading
-       ? <div>isLoading...</div>
+       ? (<div className="lds-hourglass"></div>)
        : (<div className="group-item">
          {
            data.plate_number &&
@@ -80,7 +79,7 @@ const CheckPage = (props) => {
                     className="text-arrangement"
                     style={{ marginRight: '12%' }}
                     >
-                    Plate Number:
+                    Plate:
                     </span>
                    <span>{data.plate_number}</span>
                 </span>
