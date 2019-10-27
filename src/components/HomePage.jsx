@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { withFirebase } from '../firebase';
 import ImageUploader from './ImgaeUploader/ImgaeUploader';
 import "../styles/homepage.css"
 import { DateTimePicker } from 'react-widgets'
 import Moment from 'moment'
 import momentLocalizer from 'react-widgets-moment';
-// import DateTimePicker from 'react-widgets/lib/DateTimePicker';
+import {ToastsContainer, ToastsStore, ToastsContainerPosition} from 'react-toasts';
 
 Moment.locale('en')
 momentLocalizer()
@@ -60,12 +60,14 @@ class HomePage extends Component {
 
   finishReport = async url => {
     this.setState({ triggerUpload: false })
-    await this.props.firebase.sendReport({ ...this.state.vehicle, imageUrl: url });
+    await this.props.firebase.sendReport({ ...this.state.vehicle, imageUrl: url || "" });
+    ToastsStore.success("Report send")
     // this.props.firebase.app.functions()
     // .httpsCallable('sendSMS')({
     //   message: "This vehicle has been reported lost please be on the look out\nCAR: HONDA\nVIN: 86528HTE88\nPLATE NUMBER: EKY769JK"
     //   // message: 'A car with this number has been reported stolen'
     // });
+    
     this.setState({ isLoading: false })
   }
 
@@ -78,6 +80,7 @@ class HomePage extends Component {
     const { displayImage, triggerUpload, isLoading } = this.state
     return (
       <div className="homepage">
+        <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}  lightBackground/>
         <div className="content">
           <div className="header-title">
             <h1>Report your stolen car</h1>
@@ -124,7 +127,7 @@ class HomePage extends Component {
       </div>
       <div className="row row-3">
         <div className="col col-btn-row">
-        <button type="submit" className="btn btn-primary btn-row" >
+        <button type="submit" className="btn btn-primary btn-row"  disabled={`${isLoading ? 'disabled': ''}`}>
           SUBMIT REPORT 
           {isLoading &&  <div class="spinner-border" role="status">
           <span class="sr-only">Loading...</span> </div> }
